@@ -1,0 +1,610 @@
+/* ----- CSS reset ----- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+button,
+select {
+    text-transform: none;
+}
+
+/* ----- Global styles ----- */
+body {
+    margin: 0;
+    font-family: var(--ningzhi-font-family);
+    font-size: var(--ningzhi-font-size-md);
+    line-height: var(--ningzhi-line-height);
+    background-color: var(--ningzhi-color-body);
+    color: var(--ningzhi-color-text);
+
+    -webkit-font-smoothing: var(--ningzhi-webkit-font-smoothing);
+    -moz-osx-font-smoothing: var(--ningzhi-moz-font-smoothing);
+
+    @media screen and (max-device-width: em(500px)) {
+        -webkit-text-size-adjust: 100%;
+    }
+}
+
+[data-respect-reduced-motion] {
+    @media (prefers-reduced-motion: reduce) {
+        [data-reduce-motion] {
+            transition: none;
+            animation: none;
+        }
+    }
+}
+
+
+/* 没生效，没 postcss 的支持 也没定义 mixin
+    相当于
+    :root [data-ningzhi-color-scheme= 'light' ] .ningzhi-light-hidden {
+      display : none;
+    }
+*/
+/* .ningzhi-light-hidden {
+    @mixin light {
+        display: none;
+    }
+}
+
+.ningzhi-dark-hidden {
+    @mixin dark {
+        display: none;
+    }
+} */
+
+.ningzhi-focus-auto {
+    &:focus-visible {
+        outline: 2px solid var(--ningzhi-primary-color-filled);
+        outline-offset: 2px;
+    }
+}
+
+.ningzhi-focus-always {
+    &:focus {
+        outline: 2px solid var(--ningzhi-primary-color-filled);
+        outline-offset: 2px;
+    }
+}
+
+.ningzhi-focus-never {
+    &:focus {
+        outline: none;
+    }
+}
+
+.ningzhi-active {
+    &:active {
+        transform: translateY(rem(1px));
+    }
+}
+
+/*
+    相当于：
+    [dir= 'rtl' ] .ningzhi-rotate-rtl {
+        transform : rotate ( 180deg );
+    }
+*/
+/* .ningzhi-rotate-rtl {
+    @mixin where-rtl {
+        transform: rotate(180deg);
+    }
+} */
+
+
+/* ----- Default CSS variables ----- */
+/* ----- Global CSS variables ----- */
+:root {
+    color-scheme: var(--ningzhi-color-scheme);
+
+    --ningzhi-z-index-app: 100;
+    --ningzhi-z-index-modal: 200;
+    --ningzhi-z-index-popover: 300;
+    --ningzhi-z-index-overlay: 400;
+    --ningzhi-z-index-max: 9999;
+
+    --ningzhi-scale: 1;
+    --ningzhi-cursor-type: default;
+    --ningzhi-webkit-font-smoothing: antialiased;
+    --ningzhi-color-scheme: light dark;
+    --ningzhi-moz-font-smoothing: grayscale;
+    --ningzhi-color-white: #fff;
+    --ningzhi-color-black: #000;
+    --ningzhi-line-height: 1.55;
+    --ningzhi-font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji,
+        Segoe UI Emoji;
+    --ningzhi-font-family-monospace: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+    --ningzhi-font-family-headings: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji,
+        Segoe UI Emoji;
+    --ningzhi-heading-font-weight: 700;
+    --ningzhi-radius-default: calc(0.25rem * var(--ningzhi-scale));
+    --ningzhi-primary-color-0: var(--ningzhi-color-blue-0);
+    --ningzhi-primary-color-1: var(--ningzhi-color-blue-1);
+    --ningzhi-primary-color-2: var(--ningzhi-color-blue-2);
+    --ningzhi-primary-color-3: var(--ningzhi-color-blue-3);
+    --ningzhi-primary-color-4: var(--ningzhi-color-blue-4);
+    --ningzhi-primary-color-5: var(--ningzhi-color-blue-5);
+    --ningzhi-primary-color-6: var(--ningzhi-color-blue-6);
+    --ningzhi-primary-color-7: var(--ningzhi-color-blue-7);
+    --ningzhi-primary-color-8: var(--ningzhi-color-blue-8);
+    --ningzhi-primary-color-9: var(--ningzhi-color-blue-9);
+    --ningzhi-primary-color-filled: var(--ningzhi-color-blue-filled);
+    --ningzhi-primary-color-filled-hover: var(--ningzhi-color-blue-filled-hover);
+    --ningzhi-primary-color-light: var(--ningzhi-color-blue-light);
+    --ningzhi-primary-color-light-hover: var(--ningzhi-color-blue-light-hover);
+    --ningzhi-primary-color-light-color: var(--ningzhi-color-blue-light-color);
+    --ningzhi-breakpoint-xs: 36em;
+    --ningzhi-breakpoint-sm: 48em;
+    --ningzhi-breakpoint-md: 62em;
+    --ningzhi-breakpoint-lg: 75em;
+    --ningzhi-breakpoint-xl: 88em;
+    --ningzhi-spacing-xs: calc(0.625rem * var(--ningzhi-scale));
+    --ningzhi-spacing-sm: calc(0.75rem * var(--ningzhi-scale));
+    --ningzhi-spacing-md: calc(1rem * var(--ningzhi-scale));
+    --ningzhi-spacing-lg: calc(1.25rem * var(--ningzhi-scale));
+    --ningzhi-spacing-xl: calc(2rem * var(--ningzhi-scale));
+    --ningzhi-font-size-xs: calc(0.75rem * var(--ningzhi-scale));
+    --ningzhi-font-size-sm: calc(0.875rem * var(--ningzhi-scale));
+    --ningzhi-font-size-md: calc(1rem * var(--ningzhi-scale));
+    --ningzhi-font-size-lg: calc(1.125rem * var(--ningzhi-scale));
+    --ningzhi-font-size-xl: calc(1.25rem * var(--ningzhi-scale));
+    --ningzhi-line-height-xs: 1.4;
+    --ningzhi-line-height-sm: 1.45;
+    --ningzhi-line-height-md: 1.55;
+    --ningzhi-line-height-lg: 1.6;
+    --ningzhi-line-height-xl: 1.65;
+    --ningzhi-shadow-xs: 0 calc(0.0625rem * var(--ningzhi-scale)) calc(0.1875rem * var(--ningzhi-scale)) rgba(0, 0, 0, 0.05),
+        0 calc(0.0625rem * var(--ningzhi-scale)) calc(0.125rem * var(--ningzhi-scale)) rgba(0, 0, 0, 0.1);
+    --ningzhi-shadow-sm: 0 calc(0.0625rem * var(--ningzhi-scale)) calc(0.1875rem * var(--ningzhi-scale)) rgba(0, 0, 0, 0.05),
+        rgba(0, 0, 0, 0.05) 0 calc(0.625rem * var(--ningzhi-scale)) calc(0.9375rem * var(--ningzhi-scale))
+            calc(-0.3125rem * var(--ningzhi-scale)),
+        rgba(0, 0, 0, 0.04) 0 calc(0.4375rem * var(--ningzhi-scale)) calc(0.4375rem * var(--ningzhi-scale))
+            calc(-0.3125rem * var(--ningzhi-scale));
+    --ningzhi-shadow-md: 0 calc(0.0625rem * var(--ningzhi-scale)) calc(0.1875rem * var(--ningzhi-scale)) rgba(0, 0, 0, 0.05),
+        rgba(0, 0, 0, 0.05) 0 calc(1.25rem * var(--ningzhi-scale)) calc(1.5625rem * var(--ningzhi-scale))
+            calc(-0.3125rem * var(--ningzhi-scale)),
+        rgba(0, 0, 0, 0.04) 0 calc(0.625rem * var(--ningzhi-scale)) calc(0.625rem * var(--ningzhi-scale))
+            calc(-0.3125rem * var(--ningzhi-scale));
+    --ningzhi-shadow-lg: 0 calc(0.0625rem * var(--ningzhi-scale)) calc(0.1875rem * var(--ningzhi-scale)) rgba(0, 0, 0, 0.05),
+        rgba(0, 0, 0, 0.05) 0 calc(1.75rem * var(--ningzhi-scale)) calc(1.4375rem * var(--ningzhi-scale))
+            calc(-0.4375rem * var(--ningzhi-scale)),
+        rgba(0, 0, 0, 0.04) 0 calc(0.75rem * var(--ningzhi-scale)) calc(0.75rem * var(--ningzhi-scale))
+            calc(-0.4375rem * var(--ningzhi-scale));
+    --ningzhi-shadow-xl: 0 calc(0.0625rem * var(--ningzhi-scale)) calc(0.1875rem * var(--ningzhi-scale)) rgba(0, 0, 0, 0.05),
+        rgba(0, 0, 0, 0.05) 0 calc(2.25rem * var(--ningzhi-scale)) calc(1.75rem * var(--ningzhi-scale))
+            calc(-0.4375rem * var(--ningzhi-scale)),
+        rgba(0, 0, 0, 0.04) 0 calc(1.0625rem * var(--ningzhi-scale)) calc(1.0625rem * var(--ningzhi-scale))
+            calc(-0.4375rem * var(--ningzhi-scale));
+    --ningzhi-radius-xs: calc(0.125rem * var(--ningzhi-scale));
+    --ningzhi-radius-sm: calc(0.25rem * var(--ningzhi-scale));
+    --ningzhi-radius-md: calc(0.5rem * var(--ningzhi-scale));
+    --ningzhi-radius-lg: calc(1rem * var(--ningzhi-scale));
+    --ningzhi-radius-xl: calc(2rem * var(--ningzhi-scale));
+    --ningzhi-color-dark-0: #c9c9c9;
+    --ningzhi-color-dark-1: #b8b8b8;
+    --ningzhi-color-dark-2: #828282;
+    --ningzhi-color-dark-3: #696969;
+    --ningzhi-color-dark-4: #424242;
+    --ningzhi-color-dark-5: #3b3b3b;
+    --ningzhi-color-dark-6: #2e2e2e;
+    --ningzhi-color-dark-7: #242424;
+    --ningzhi-color-dark-8: #1f1f1f;
+    --ningzhi-color-dark-9: #141414;
+    --ningzhi-color-gray-0: #f8f9fa;
+    --ningzhi-color-gray-1: #f1f3f5;
+    --ningzhi-color-gray-2: #e9ecef;
+    --ningzhi-color-gray-3: #dee2e6;
+    --ningzhi-color-gray-4: #ced4da;
+    --ningzhi-color-gray-5: #adb5bd;
+    --ningzhi-color-gray-6: #868e96;
+    --ningzhi-color-gray-7: #495057;
+    --ningzhi-color-gray-8: #343a40;
+    --ningzhi-color-gray-9: #212529;
+    --ningzhi-color-red-0: #fff5f5;
+    --ningzhi-color-red-1: #ffe3e3;
+    --ningzhi-color-red-2: #ffc9c9;
+    --ningzhi-color-red-3: #ffa8a8;
+    --ningzhi-color-red-4: #ff8787;
+    --ningzhi-color-red-5: #ff6b6b;
+    --ningzhi-color-red-6: #fa5252;
+    --ningzhi-color-red-7: #f03e3e;
+    --ningzhi-color-red-8: #e03131;
+    --ningzhi-color-red-9: #c92a2a;
+    --ningzhi-color-pink-0: #fff0f6;
+    --ningzhi-color-pink-1: #ffdeeb;
+    --ningzhi-color-pink-2: #fcc2d7;
+    --ningzhi-color-pink-3: #faa2c1;
+    --ningzhi-color-pink-4: #f783ac;
+    --ningzhi-color-pink-5: #f06595;
+    --ningzhi-color-pink-6: #e64980;
+    --ningzhi-color-pink-7: #d6336c;
+    --ningzhi-color-pink-8: #c2255c;
+    --ningzhi-color-pink-9: #a61e4d;
+    --ningzhi-color-grape-0: #f8f0fc;
+    --ningzhi-color-grape-1: #f3d9fa;
+    --ningzhi-color-grape-2: #eebefa;
+    --ningzhi-color-grape-3: #e599f7;
+    --ningzhi-color-grape-4: #da77f2;
+    --ningzhi-color-grape-5: #cc5de8;
+    --ningzhi-color-grape-6: #be4bdb;
+    --ningzhi-color-grape-7: #ae3ec9;
+    --ningzhi-color-grape-8: #9c36b5;
+    --ningzhi-color-grape-9: #862e9c;
+    --ningzhi-color-violet-0: #f3f0ff;
+    --ningzhi-color-violet-1: #e5dbff;
+    --ningzhi-color-violet-2: #d0bfff;
+    --ningzhi-color-violet-3: #b197fc;
+    --ningzhi-color-violet-4: #9775fa;
+    --ningzhi-color-violet-5: #845ef7;
+    --ningzhi-color-violet-6: #7950f2;
+    --ningzhi-color-violet-7: #7048e8;
+    --ningzhi-color-violet-8: #6741d9;
+    --ningzhi-color-violet-9: #5f3dc4;
+    --ningzhi-color-indigo-0: #edf2ff;
+    --ningzhi-color-indigo-1: #dbe4ff;
+    --ningzhi-color-indigo-2: #bac8ff;
+    --ningzhi-color-indigo-3: #91a7ff;
+    --ningzhi-color-indigo-4: #748ffc;
+    --ningzhi-color-indigo-5: #5c7cfa;
+    --ningzhi-color-indigo-6: #4c6ef5;
+    --ningzhi-color-indigo-7: #4263eb;
+    --ningzhi-color-indigo-8: #3b5bdb;
+    --ningzhi-color-indigo-9: #364fc7;
+    --ningzhi-color-blue-0: #e7f5ff;
+    --ningzhi-color-blue-1: #d0ebff;
+    --ningzhi-color-blue-2: #a5d8ff;
+    --ningzhi-color-blue-3: #74c0fc;
+    --ningzhi-color-blue-4: #4dabf7;
+    --ningzhi-color-blue-5: #339af0;
+    --ningzhi-color-blue-6: #228be6;
+    --ningzhi-color-blue-7: #1c7ed6;
+    --ningzhi-color-blue-8: #1971c2;
+    --ningzhi-color-blue-9: #1864ab;
+    --ningzhi-color-cyan-0: #e3fafc;
+    --ningzhi-color-cyan-1: #c5f6fa;
+    --ningzhi-color-cyan-2: #99e9f2;
+    --ningzhi-color-cyan-3: #66d9e8;
+    --ningzhi-color-cyan-4: #3bc9db;
+    --ningzhi-color-cyan-5: #22b8cf;
+    --ningzhi-color-cyan-6: #15aabf;
+    --ningzhi-color-cyan-7: #1098ad;
+    --ningzhi-color-cyan-8: #0c8599;
+    --ningzhi-color-cyan-9: #0b7285;
+    --ningzhi-color-teal-0: #e6fcf5;
+    --ningzhi-color-teal-1: #c3fae8;
+    --ningzhi-color-teal-2: #96f2d7;
+    --ningzhi-color-teal-3: #63e6be;
+    --ningzhi-color-teal-4: #38d9a9;
+    --ningzhi-color-teal-5: #20c997;
+    --ningzhi-color-teal-6: #12b886;
+    --ningzhi-color-teal-7: #0ca678;
+    --ningzhi-color-teal-8: #099268;
+    --ningzhi-color-teal-9: #087f5b;
+    --ningzhi-color-green-0: #ebfbee;
+    --ningzhi-color-green-1: #d3f9d8;
+    --ningzhi-color-green-2: #b2f2bb;
+    --ningzhi-color-green-3: #8ce99a;
+    --ningzhi-color-green-4: #69db7c;
+    --ningzhi-color-green-5: #51cf66;
+    --ningzhi-color-green-6: #40c057;
+    --ningzhi-color-green-7: #37b24d;
+    --ningzhi-color-green-8: #2f9e44;
+    --ningzhi-color-green-9: #2b8a3e;
+    --ningzhi-color-lime-0: #f4fce3;
+    --ningzhi-color-lime-1: #e9fac8;
+    --ningzhi-color-lime-2: #d8f5a2;
+    --ningzhi-color-lime-3: #c0eb75;
+    --ningzhi-color-lime-4: #a9e34b;
+    --ningzhi-color-lime-5: #94d82d;
+    --ningzhi-color-lime-6: #82c91e;
+    --ningzhi-color-lime-7: #74b816;
+    --ningzhi-color-lime-8: #66a80f;
+    --ningzhi-color-lime-9: #5c940d;
+    --ningzhi-color-yellow-0: #fff9db;
+    --ningzhi-color-yellow-1: #fff3bf;
+    --ningzhi-color-yellow-2: #ffec99;
+    --ningzhi-color-yellow-3: #ffe066;
+    --ningzhi-color-yellow-4: #ffd43b;
+    --ningzhi-color-yellow-5: #fcc419;
+    --ningzhi-color-yellow-6: #fab005;
+    --ningzhi-color-yellow-7: #f59f00;
+    --ningzhi-color-yellow-8: #f08c00;
+    --ningzhi-color-yellow-9: #e67700;
+    --ningzhi-color-orange-0: #fff4e6;
+    --ningzhi-color-orange-1: #ffe8cc;
+    --ningzhi-color-orange-2: #ffd8a8;
+    --ningzhi-color-orange-3: #ffc078;
+    --ningzhi-color-orange-4: #ffa94d;
+    --ningzhi-color-orange-5: #ff922b;
+    --ningzhi-color-orange-6: #fd7e14;
+    --ningzhi-color-orange-7: #f76707;
+    --ningzhi-color-orange-8: #e8590c;
+    --ningzhi-color-orange-9: #d9480f;
+    --ningzhi-h1-font-size: calc(2.125rem * var(--ningzhi-scale));
+    --ningzhi-h1-line-height: 1.3;
+    --ningzhi-h1-font-weight: 700;
+    --ningzhi-h2-font-size: calc(1.625rem * var(--ningzhi-scale));
+    --ningzhi-h2-line-height: 1.35;
+    --ningzhi-h2-font-weight: 700;
+    --ningzhi-h3-font-size: calc(1.375rem * var(--ningzhi-scale));
+    --ningzhi-h3-line-height: 1.4;
+    --ningzhi-h3-font-weight: 700;
+    --ningzhi-h4-font-size: calc(1.125rem * var(--ningzhi-scale));
+    --ningzhi-h4-line-height: 1.45;
+    --ningzhi-h4-font-weight: 700;
+    --ningzhi-h5-font-size: calc(1rem * var(--ningzhi-scale));
+    --ningzhi-h5-line-height: 1.5;
+    --ningzhi-h5-font-weight: 700;
+    --ningzhi-h6-font-size: calc(0.875rem * var(--ningzhi-scale));
+    --ningzhi-h6-line-height: 1.5;
+    --ningzhi-h6-font-weight: 700;
+}
+
+/*
+    :root 匹配文档根元素，即`<html>` 标签
+    当`<html>` 元素的`data-ningzhi-color-scheme` 属性等于`dark` 时，应用花括号内的样式变量
+*/
+:root[data-ningzhi-color-scheme='dark'] {
+    --ningzhi-color-scheme: dark;
+    --ningzhi-primary-color-contrast: var(--ningzhi-color-white);
+    --ningzhi-color-bright: var(--ningzhi-color-white);
+    --ningzhi-color-text: var(--ningzhi-color-dark-0);
+    --ningzhi-color-body: var(--ningzhi-color-dark-7);
+    --ningzhi-color-error: var(--ningzhi-color-red-8);
+    --ningzhi-color-placeholder: var(--ningzhi-color-dark-3);
+    --ningzhi-color-anchor: var(--ningzhi-color-blue-4);
+    --ningzhi-color-default: var(--ningzhi-color-dark-6);
+    --ningzhi-color-default-hover: var(--ningzhi-color-dark-5);
+    --ningzhi-color-default-color: var(--ningzhi-color-white);
+    --ningzhi-color-default-border: var(--ningzhi-color-dark-4);
+    --ningzhi-color-dimmed: var(--ningzhi-color-dark-2);
+    --ningzhi-color-dark-text: var(--ningzhi-color-dark-4);
+    --ningzhi-color-dark-filled: var(--ningzhi-color-dark-8);
+    --ningzhi-color-dark-filled-hover: var(--ningzhi-color-dark-7);
+    --ningzhi-color-dark-light: rgba(36, 36, 36, 0.15);
+    --ningzhi-color-dark-light-hover: rgba(36, 36, 36, 0.2);
+    --ningzhi-color-dark-light-color: var(--ningzhi-color-dark-3);
+    --ningzhi-color-dark-outline: var(--ningzhi-color-dark-4);
+    --ningzhi-color-dark-outline-hover: rgba(36, 36, 36, 0.05);
+    --ningzhi-color-gray-text: var(--ningzhi-color-gray-4);
+    --ningzhi-color-gray-filled: var(--ningzhi-color-gray-8);
+    --ningzhi-color-gray-filled-hover: var(--ningzhi-color-gray-9);
+    --ningzhi-color-gray-light: rgba(134, 142, 150, 0.15);
+    --ningzhi-color-gray-light-hover: rgba(134, 142, 150, 0.2);
+    --ningzhi-color-gray-light-color: var(--ningzhi-color-gray-3);
+    --ningzhi-color-gray-outline: var(--ningzhi-color-gray-4);
+    --ningzhi-color-gray-outline-hover: rgba(206, 212, 218, 0.05);
+    --ningzhi-color-red-text: var(--ningzhi-color-red-4);
+    --ningzhi-color-red-filled: var(--ningzhi-color-red-8);
+    --ningzhi-color-red-filled-hover: var(--ningzhi-color-red-9);
+    --ningzhi-color-red-light: rgba(250, 82, 82, 0.15);
+    --ningzhi-color-red-light-hover: rgba(250, 82, 82, 0.2);
+    --ningzhi-color-red-light-color: var(--ningzhi-color-red-3);
+    --ningzhi-color-red-outline: var(--ningzhi-color-red-4);
+    --ningzhi-color-red-outline-hover: rgba(255, 135, 135, 0.05);
+    --ningzhi-color-pink-text: var(--ningzhi-color-pink-4);
+    --ningzhi-color-pink-filled: var(--ningzhi-color-pink-8);
+    --ningzhi-color-pink-filled-hover: var(--ningzhi-color-pink-9);
+    --ningzhi-color-pink-light: rgba(230, 73, 128, 0.15);
+    --ningzhi-color-pink-light-hover: rgba(230, 73, 128, 0.2);
+    --ningzhi-color-pink-light-color: var(--ningzhi-color-pink-3);
+    --ningzhi-color-pink-outline: var(--ningzhi-color-pink-4);
+    --ningzhi-color-pink-outline-hover: rgba(247, 131, 172, 0.05);
+    --ningzhi-color-grape-text: var(--ningzhi-color-grape-4);
+    --ningzhi-color-grape-filled: var(--ningzhi-color-grape-8);
+    --ningzhi-color-grape-filled-hover: var(--ningzhi-color-grape-9);
+    --ningzhi-color-grape-light: rgba(190, 75, 219, 0.15);
+    --ningzhi-color-grape-light-hover: rgba(190, 75, 219, 0.2);
+    --ningzhi-color-grape-light-color: var(--ningzhi-color-grape-3);
+    --ningzhi-color-grape-outline: var(--ningzhi-color-grape-4);
+    --ningzhi-color-grape-outline-hover: rgba(218, 119, 242, 0.05);
+    --ningzhi-color-violet-text: var(--ningzhi-color-violet-4);
+    --ningzhi-color-violet-filled: var(--ningzhi-color-violet-8);
+    --ningzhi-color-violet-filled-hover: var(--ningzhi-color-violet-9);
+    --ningzhi-color-violet-light: rgba(121, 80, 242, 0.15);
+    --ningzhi-color-violet-light-hover: rgba(121, 80, 242, 0.2);
+    --ningzhi-color-violet-light-color: var(--ningzhi-color-violet-3);
+    --ningzhi-color-violet-outline: var(--ningzhi-color-violet-4);
+    --ningzhi-color-violet-outline-hover: rgba(151, 117, 250, 0.05);
+    --ningzhi-color-indigo-text: var(--ningzhi-color-indigo-4);
+    --ningzhi-color-indigo-filled: var(--ningzhi-color-indigo-8);
+    --ningzhi-color-indigo-filled-hover: var(--ningzhi-color-indigo-9);
+    --ningzhi-color-indigo-light: rgba(76, 110, 245, 0.15);
+    --ningzhi-color-indigo-light-hover: rgba(76, 110, 245, 0.2);
+    --ningzhi-color-indigo-light-color: var(--ningzhi-color-indigo-3);
+    --ningzhi-color-indigo-outline: var(--ningzhi-color-indigo-4);
+    --ningzhi-color-indigo-outline-hover: rgba(116, 143, 252, 0.05);
+    --ningzhi-color-blue-text: var(--ningzhi-color-blue-4);
+    --ningzhi-color-blue-filled: var(--ningzhi-color-blue-8);
+    --ningzhi-color-blue-filled-hover: var(--ningzhi-color-blue-9);
+    --ningzhi-color-blue-light: rgba(34, 139, 230, 0.15);
+    --ningzhi-color-blue-light-hover: rgba(34, 139, 230, 0.2);
+    --ningzhi-color-blue-light-color: var(--ningzhi-color-blue-3);
+    --ningzhi-color-blue-outline: var(--ningzhi-color-blue-4);
+    --ningzhi-color-blue-outline-hover: rgba(77, 171, 247, 0.05);
+    --ningzhi-color-cyan-text: var(--ningzhi-color-cyan-4);
+    --ningzhi-color-cyan-filled: var(--ningzhi-color-cyan-8);
+    --ningzhi-color-cyan-filled-hover: var(--ningzhi-color-cyan-9);
+    --ningzhi-color-cyan-light: rgba(21, 170, 191, 0.15);
+    --ningzhi-color-cyan-light-hover: rgba(21, 170, 191, 0.2);
+    --ningzhi-color-cyan-light-color: var(--ningzhi-color-cyan-3);
+    --ningzhi-color-cyan-outline: var(--ningzhi-color-cyan-4);
+    --ningzhi-color-cyan-outline-hover: rgba(59, 201, 219, 0.05);
+    --ningzhi-color-teal-text: var(--ningzhi-color-teal-4);
+    --ningzhi-color-teal-filled: var(--ningzhi-color-teal-8);
+    --ningzhi-color-teal-filled-hover: var(--ningzhi-color-teal-9);
+    --ningzhi-color-teal-light: rgba(18, 184, 134, 0.15);
+    --ningzhi-color-teal-light-hover: rgba(18, 184, 134, 0.2);
+    --ningzhi-color-teal-light-color: var(--ningzhi-color-teal-3);
+    --ningzhi-color-teal-outline: var(--ningzhi-color-teal-4);
+    --ningzhi-color-teal-outline-hover: rgba(56, 217, 169, 0.05);
+    --ningzhi-color-green-text: var(--ningzhi-color-green-4);
+    --ningzhi-color-green-filled: var(--ningzhi-color-green-8);
+    --ningzhi-color-green-filled-hover: var(--ningzhi-color-green-9);
+    --ningzhi-color-green-light: rgba(64, 192, 87, 0.15);
+    --ningzhi-color-green-light-hover: rgba(64, 192, 87, 0.2);
+    --ningzhi-color-green-light-color: var(--ningzhi-color-green-3);
+    --ningzhi-color-green-outline: var(--ningzhi-color-green-4);
+    --ningzhi-color-green-outline-hover: rgba(105, 219, 124, 0.05);
+    --ningzhi-color-lime-text: var(--ningzhi-color-lime-4);
+    --ningzhi-color-lime-filled: var(--ningzhi-color-lime-8);
+    --ningzhi-color-lime-filled-hover: var(--ningzhi-color-lime-9);
+    --ningzhi-color-lime-light: rgba(130, 201, 30, 0.15);
+    --ningzhi-color-lime-light-hover: rgba(130, 201, 30, 0.2);
+    --ningzhi-color-lime-light-color: var(--ningzhi-color-lime-3);
+    --ningzhi-color-lime-outline: var(--ningzhi-color-lime-4);
+    --ningzhi-color-lime-outline-hover: rgba(169, 227, 75, 0.05);
+    --ningzhi-color-yellow-text: var(--ningzhi-color-yellow-4);
+    --ningzhi-color-yellow-filled: var(--ningzhi-color-yellow-8);
+    --ningzhi-color-yellow-filled-hover: var(--ningzhi-color-yellow-9);
+    --ningzhi-color-yellow-light: rgba(250, 176, 5, 0.15);
+    --ningzhi-color-yellow-light-hover: rgba(250, 176, 5, 0.2);
+    --ningzhi-color-yellow-light-color: var(--ningzhi-color-yellow-3);
+    --ningzhi-color-yellow-outline: var(--ningzhi-color-yellow-4);
+    --ningzhi-color-yellow-outline-hover: rgba(255, 212, 59, 0.05);
+    --ningzhi-color-orange-text: var(--ningzhi-color-orange-4);
+    --ningzhi-color-orange-filled: var(--ningzhi-color-orange-8);
+    --ningzhi-color-orange-filled-hover: var(--ningzhi-color-orange-9);
+    --ningzhi-color-orange-light: rgba(253, 126, 20, 0.15);
+    --ningzhi-color-orange-light-hover: rgba(253, 126, 20, 0.2);
+    --ningzhi-color-orange-light-color: var(--ningzhi-color-orange-3);
+    --ningzhi-color-orange-outline: var(--ningzhi-color-orange-4);
+    --ningzhi-color-orange-outline-hover: rgba(255, 169, 77, 0.05);
+}
+
+:root[data-ningzhi-color-scheme='light'] {
+    --ningzhi-color-scheme: light;
+    --ningzhi-color-bright: var(--ningzhi-color-black);
+    --ningzhi-color-text: var(--ningzhi-color-black);
+    --ningzhi-color-body: var(--ningzhi-color-white);
+    --ningzhi-primary-color-contrast: var(--ningzhi-color-white);
+    --ningzhi-color-error: var(--ningzhi-color-red-6);
+    --ningzhi-color-placeholder: var(--ningzhi-color-gray-5);
+    --ningzhi-color-anchor: var(--ningzhi-primary-color-filled);
+    --ningzhi-color-default: var(--ningzhi-color-white);
+    --ningzhi-color-default-hover: var(--ningzhi-color-gray-0);
+    --ningzhi-color-default-color: var(--ningzhi-color-gray-9);
+    --ningzhi-color-default-border: var(--ningzhi-color-gray-4);
+    --ningzhi-color-dimmed: var(--ningzhi-color-gray-6);
+    --ningzhi-color-dark-text: var(--ningzhi-color-dark-filled);
+    --ningzhi-color-dark-filled: var(--ningzhi-color-dark-6);
+    --ningzhi-color-dark-filled-hover: var(--ningzhi-color-dark-7);
+    --ningzhi-color-dark-light: rgba(56, 56, 56, 0.1);
+    --ningzhi-color-dark-light-hover: rgba(56, 56, 56, 0.12);
+    --ningzhi-color-dark-light-color: var(--ningzhi-color-dark-6);
+    --ningzhi-color-dark-outline: var(--ningzhi-color-dark-6);
+    --ningzhi-color-dark-outline-hover: rgba(56, 56, 56, 0.05);
+    --ningzhi-color-gray-text: var(--ningzhi-color-gray-filled);
+    --ningzhi-color-gray-filled: var(--ningzhi-color-gray-6);
+    --ningzhi-color-gray-filled-hover: var(--ningzhi-color-gray-7);
+    --ningzhi-color-gray-light: rgba(134, 142, 150, 0.1);
+    --ningzhi-color-gray-light-hover: rgba(134, 142, 150, 0.12);
+    --ningzhi-color-gray-light-color: var(--ningzhi-color-gray-6);
+    --ningzhi-color-gray-outline: var(--ningzhi-color-gray-6);
+    --ningzhi-color-gray-outline-hover: rgba(134, 142, 150, 0.05);
+    --ningzhi-color-red-text: var(--ningzhi-color-red-filled);
+    --ningzhi-color-red-filled: var(--ningzhi-color-red-6);
+    --ningzhi-color-red-filled-hover: var(--ningzhi-color-red-7);
+    --ningzhi-color-red-light: rgba(250, 82, 82, 0.1);
+    --ningzhi-color-red-light-hover: rgba(250, 82, 82, 0.12);
+    --ningzhi-color-red-light-color: var(--ningzhi-color-red-6);
+    --ningzhi-color-red-outline: var(--ningzhi-color-red-6);
+    --ningzhi-color-red-outline-hover: rgba(250, 82, 82, 0.05);
+    --ningzhi-color-pink-text: var(--ningzhi-color-pink-filled);
+    --ningzhi-color-pink-filled: var(--ningzhi-color-pink-6);
+    --ningzhi-color-pink-filled-hover: var(--ningzhi-color-pink-7);
+    --ningzhi-color-pink-light: rgba(230, 73, 128, 0.1);
+    --ningzhi-color-pink-light-hover: rgba(230, 73, 128, 0.12);
+    --ningzhi-color-pink-light-color: var(--ningzhi-color-pink-6);
+    --ningzhi-color-pink-outline: var(--ningzhi-color-pink-6);
+    --ningzhi-color-pink-outline-hover: rgba(230, 73, 128, 0.05);
+    --ningzhi-color-grape-text: var(--ningzhi-color-grape-filled);
+    --ningzhi-color-grape-filled: var(--ningzhi-color-grape-6);
+    --ningzhi-color-grape-filled-hover: var(--ningzhi-color-grape-7);
+    --ningzhi-color-grape-light: rgba(190, 75, 219, 0.1);
+    --ningzhi-color-grape-light-hover: rgba(190, 75, 219, 0.12);
+    --ningzhi-color-grape-light-color: var(--ningzhi-color-grape-6);
+    --ningzhi-color-grape-outline: var(--ningzhi-color-grape-6);
+    --ningzhi-color-grape-outline-hover: rgba(190, 75, 219, 0.05);
+    --ningzhi-color-violet-text: var(--ningzhi-color-violet-filled);
+    --ningzhi-color-violet-filled: var(--ningzhi-color-violet-6);
+    --ningzhi-color-violet-filled-hover: var(--ningzhi-color-violet-7);
+    --ningzhi-color-violet-light: rgba(121, 80, 242, 0.1);
+    --ningzhi-color-violet-light-hover: rgba(121, 80, 242, 0.12);
+    --ningzhi-color-violet-light-color: var(--ningzhi-color-violet-6);
+    --ningzhi-color-violet-outline: var(--ningzhi-color-violet-6);
+    --ningzhi-color-violet-outline-hover: rgba(121, 80, 242, 0.05);
+    --ningzhi-color-indigo-text: var(--ningzhi-color-indigo-filled);
+    --ningzhi-color-indigo-filled: var(--ningzhi-color-indigo-6);
+    --ningzhi-color-indigo-filled-hover: var(--ningzhi-color-indigo-7);
+    --ningzhi-color-indigo-light: rgba(76, 110, 245, 0.1);
+    --ningzhi-color-indigo-light-hover: rgba(76, 110, 245, 0.12);
+    --ningzhi-color-indigo-light-color: var(--ningzhi-color-indigo-6);
+    --ningzhi-color-indigo-outline: var(--ningzhi-color-indigo-6);
+    --ningzhi-color-indigo-outline-hover: rgba(76, 110, 245, 0.05);
+    --ningzhi-color-blue-text: var(--ningzhi-color-blue-filled);
+    --ningzhi-color-blue-filled: var(--ningzhi-color-blue-6);
+    --ningzhi-color-blue-filled-hover: var(--ningzhi-color-blue-7);
+    --ningzhi-color-blue-light: rgba(34, 139, 230, 0.1);
+    --ningzhi-color-blue-light-hover: rgba(34, 139, 230, 0.12);
+    --ningzhi-color-blue-light-color: var(--ningzhi-color-blue-6);
+    --ningzhi-color-blue-outline: var(--ningzhi-color-blue-6);
+    --ningzhi-color-blue-outline-hover: rgba(34, 139, 230, 0.05);
+    --ningzhi-color-cyan-text: var(--ningzhi-color-cyan-filled);
+    --ningzhi-color-cyan-filled: var(--ningzhi-color-cyan-6);
+    --ningzhi-color-cyan-filled-hover: var(--ningzhi-color-cyan-7);
+    --ningzhi-color-cyan-light: rgba(21, 170, 191, 0.1);
+    --ningzhi-color-cyan-light-hover: rgba(21, 170, 191, 0.12);
+    --ningzhi-color-cyan-light-color: var(--ningzhi-color-cyan-6);
+    --ningzhi-color-cyan-outline: var(--ningzhi-color-cyan-6);
+    --ningzhi-color-cyan-outline-hover: rgba(21, 170, 191, 0.05);
+    --ningzhi-color-teal-text: var(--ningzhi-color-teal-filled);
+    --ningzhi-color-teal-filled: var(--ningzhi-color-teal-6);
+    --ningzhi-color-teal-filled-hover: var(--ningzhi-color-teal-7);
+    --ningzhi-color-teal-light: rgba(18, 184, 134, 0.1);
+    --ningzhi-color-teal-light-hover: rgba(18, 184, 134, 0.12);
+    --ningzhi-color-teal-light-color: var(--ningzhi-color-teal-6);
+    --ningzhi-color-teal-outline: var(--ningzhi-color-teal-6);
+    --ningzhi-color-teal-outline-hover: rgba(18, 184, 134, 0.05);
+    --ningzhi-color-green-text: var(--ningzhi-color-green-filled);
+    --ningzhi-color-green-filled: var(--ningzhi-color-green-6);
+    --ningzhi-color-green-filled-hover: var(--ningzhi-color-green-7);
+    --ningzhi-color-green-light: rgba(64, 192, 87, 0.1);
+    --ningzhi-color-green-light-hover: rgba(64, 192, 87, 0.12);
+    --ningzhi-color-green-light-color: var(--ningzhi-color-green-6);
+    --ningzhi-color-green-outline: var(--ningzhi-color-green-6);
+    --ningzhi-color-green-outline-hover: rgba(64, 192, 87, 0.05);
+    --ningzhi-color-lime-text: var(--ningzhi-color-lime-filled);
+    --ningzhi-color-lime-filled: var(--ningzhi-color-lime-6);
+    --ningzhi-color-lime-filled-hover: var(--ningzhi-color-lime-7);
+    --ningzhi-color-lime-light: rgba(130, 201, 30, 0.1);
+    --ningzhi-color-lime-light-hover: rgba(130, 201, 30, 0.12);
+    --ningzhi-color-lime-light-color: var(--ningzhi-color-lime-6);
+    --ningzhi-color-lime-outline: var(--ningzhi-color-lime-6);
+    --ningzhi-color-lime-outline-hover: rgba(130, 201, 30, 0.05);
+    --ningzhi-color-yellow-text: var(--ningzhi-color-yellow-filled);
+    --ningzhi-color-yellow-filled: var(--ningzhi-color-yellow-6);
+    --ningzhi-color-yellow-filled-hover: var(--ningzhi-color-yellow-7);
+    --ningzhi-color-yellow-light: rgba(250, 176, 5, 0.1);
+    --ningzhi-color-yellow-light-hover: rgba(250, 176, 5, 0.12);
+    --ningzhi-color-yellow-light-color: var(--ningzhi-color-yellow-6);
+    --ningzhi-color-yellow-outline: var(--ningzhi-color-yellow-6);
+    --ningzhi-color-yellow-outline-hover: rgba(250, 176, 5, 0.05);
+    --ningzhi-color-orange-text: var(--ningzhi-color-orange-filled);
+    --ningzhi-color-orange-filled: var(--ningzhi-color-orange-6);
+    --ningzhi-color-orange-filled-hover: var(--ningzhi-color-orange-7);
+    --ningzhi-color-orange-light: rgba(253, 126, 20, 0.1);
+    --ningzhi-color-orange-light-hover: rgba(253, 126, 20, 0.12);
+    --ningzhi-color-orange-light-color: var(--ningzhi-color-orange-6);
+    --ningzhi-color-orange-outline: var(--ningzhi-color-orange-6);
+    --ningzhi-color-orange-outline-hover: rgba(253, 126, 20, 0.05);
+}

@@ -1,0 +1,21 @@
+node_modules
+.ningzhiignore
+.dependencygraph
+.DS_Store
+**/build
+**/dist
+**/es
+
+# dumi
+**/.dumi
+**/tmp
+**/docs-dist
+
+.turbo
+
+.cspellcache
+
+pnpm-lock.yaml
+yarn.lock
+
+node_modules/
