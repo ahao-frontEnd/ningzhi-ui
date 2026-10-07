@@ -4,9 +4,10 @@ conventionalcommits
 dumi
 favicons
 gitee
-Heyi
 mfsu
 ningzhi
 Parens
 tseslint
 tsup
+vite
+zstd

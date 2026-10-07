@@ -6,11 +6,12 @@
     "main": "es/index.js",
     "module": "es/index.js",
     "files": [
-        "build"
+        "es"
     ],
     "scripts": {
         "dev": "tsup --watch",
-        "build": "tsup"
+        "build": "tsup",
+        "release": "pnpm build && npm publish --access public"
     },
     "dependencies": {},
     "devDependencies": {

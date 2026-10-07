@@ -22,7 +22,7 @@
         "prepare": "husky"
     },
     "keywords": [],
-    "author": "Heyi",
+    "author": "Ningzhi",
     "license": "ningzhiEdu",
     "config": {
         "commitizen": {
